@@ -47,7 +47,7 @@ app.post('/login', async (req, res) => {
       // Can also use await in front of jwt.sign rather than the other arguments
       jwt.sign({email: userDoc.email, id: userDoc._id}, jwtSecret, {}, (err, token) => {
         if (err) throw err;
-        res.cookie('token', token).json('pass ok');
+        res.cookie('token', token).json(userDoc);
       })
     } else {
       res.status(422).json('pass not ok');
@@ -56,5 +56,9 @@ app.post('/login', async (req, res) => {
     res.json('not found');
   }
 });
+
+app.get('/profile', (req, res) => {
+  res.json('user info');
+})
 
 app.listen(4000);
